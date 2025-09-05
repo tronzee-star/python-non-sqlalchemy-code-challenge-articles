@@ -22,33 +22,30 @@ class TestArticle:
         """title is an immutable string"""
         author = Author("Carry Bradshaw")
         magazine = Magazine("Vogue", "Fashion")
-        article_1 = Article(author, magazine, "How to wear a tutu with style")
 
-        # comment out the next two lines if using Exceptions
-        article_1.title = 500
-        assert article_1.title == "How to wear a tutu with style"
-        
+        # valid
+        article_1 = Article(author, magazine, "How to wear a tutu with style")
         assert isinstance(article_1.title, str)
 
-        # uncomment the next two lines if using Exceptions
-        # with pytest.raises(Exception):
-        #     Article(author, magazine, 500)
+        # Exception approach
+        with pytest.raises(Exception):
+            Article(author, magazine, 500)
 
     def test_title_is_valid(self):
         """title is between 5 and 50 characters inclusive"""
         author = Author("Carry Bradshaw")
         magazine = Magazine("Vogue", "Fashion")
-        article_1 = Article(author, magazine, "How to wear a tutu with style")
 
+        article_1 = Article(author, magazine, "How to wear a tutu with style")
         assert 5 <= len(article_1.title) <= 50
 
-        # uncomment the next two lines if using Exceptions
-        # with pytest.raises(Exception):
-        #     Article(author, magazine, "Test")
+        # too short
+        with pytest.raises(Exception):
+            Article(author, magazine, "Test")
 
-        # uncomment the next two lines if using Exceptions
-        # with pytest.raises(Exception):
-        #     Article(author, magazine, "How to wear a tutu with style and walk confidently down the street")
+        # too long
+        with pytest.raises(Exception):
+            Article(author, magazine, "How to wear a tutu with style and walk confidently down the street")
 
     def test_has_an_author(self):
         """article has an author"""
@@ -71,7 +68,8 @@ class TestArticle:
 
         assert isinstance(article_1.author, Author)
         assert isinstance(article_2.author, Author)
-        
+
+        # mutable
         article_1.author = author_2
         assert isinstance(article_1.author, Author)
         assert article_1.author.name == "Nathaniel Hawthorne"
@@ -97,7 +95,8 @@ class TestArticle:
 
         assert isinstance(article_1.magazine, Magazine)
         assert isinstance(article_2.magazine, Magazine)
-        
+
+        # mutable
         article_1.magazine = magazine_2
         assert isinstance(article_1.magazine, Magazine)
         assert article_1.magazine.name == "AD"
